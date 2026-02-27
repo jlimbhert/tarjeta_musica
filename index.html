@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta Musical</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="marca-canal">
+        @Pollonejo
+    </div>
+
+    <div class="tarjeta">
+
+        <div class="titulo-cancion">
+            Nunca lo Olvides
+        </div>
+
+        <div class="imagen-contenedor">
+            <img src="assets/images/delijitos.png" class="icono-tarjeta" alt="Icono Musical">
+        </div>
+
+        <div class="verso-contenedor" id="cajaScroll">
+            <p id="textoVerso"></p>
+            <span id="puntero"></span>
+        </div>
+
+        <div class="reproductor">
+            <button id="botonPlay" class="boton-rojo">
+                <span id="estadoIcono">&#9658;</span>
+            </button>
+
+            <div id="ondasContenedor" class="ondas-flex"></div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+
+</body>
+</html>
