@@ -1,12 +1,12 @@
-// 1. CONFIGURACIÓN: Aquí cambias todo de un solo golpe
+// 1. CONFIGURACIÓN CENTRALIZADA
 const cancion = {
     titulo: "Nunca lo Olvides",
     audio: "assets/audio/cancion1.mp3",
     imagen: "assets/images/delijitos.png",
     fondo: "url('assets/images/fondo1.jpg')",
-    colorPrincipal: "#ff0000",   // Color de botones, marca y cursor
-    colorDeLetra: "#ffd700",     // Color de los versos y título
-    opacidadFondo: 0.7,          // 0.8 para muy oscuro, 0.2 para fondos claros
+    colorPrincipal: "#ff0000",   
+    colorDeLetra: "#ffd700",     
+    opacidadFondo: 0.7,          
     velocidadLetras: 100,
     letra: "No me arrepiento,\nde nada contigo\nContigo me muero\nContigo revivo\nSos mi victoria\nY sos mi fracaso\nY sos mi victoria\nY sos mi fracaso\nSos todo lo bueno\nSos todo lo malo\nAquí estoy\nOtra vez...\n\nSoy tu soldado\nde brazos rendidos\nsiempre en esta gerra\nsalimos heridos\nComo explicarte\neste sentimiento\nSino me acostumbro\nSi no lo resuelvo\n\nNunca te olvides\nQue te doy mi vida\nTe extraño de noche\nTe quiero de día\n\nQuiero llevarte\nPor siempre conmigo\nHacia ningun lado\nhacia el infinito..."
 };
@@ -32,7 +32,7 @@ const cancionAudio = new Audio(cancion.audio);
 let index = 0;
 let escrituraIniciada = false;
 
-// Generar ondas automáticamente
+// Generar ondas
 for (let i = 0; i < 15; i++) {
     const onda = document.createElement('div');
     onda.classList.add('una-onda');

@@ -1,6 +1,3 @@
-/* =========================================
-   1. VARIABLES Y CONFIGURACIÓN GLOBAL
-   ========================================= */
 :root {
     --url-fondo: url('');
     --opacidad-capa: 0.7;
@@ -25,9 +22,6 @@ body {
     overflow-x: hidden;
 }
 
-/* =========================================
-   MARCA DE AGUA
-   ========================================= */
 .marca-canal {
     margin-top: 20px;
     margin-bottom: 12px;
@@ -44,9 +38,7 @@ body {
     to { text-shadow: 0 0 20px var(--color-acento), 0 0 35px var(--color-acento); opacity: 1; }
 }
 
-/* =========================================
-   2. CONTENEDOR TARJETA (LUZ DE NEÓN CORRIENDO)
-   ========================================= */
+/* --- CONTENEDOR TARJETA (CON LUZ CORRIENDO SOLO EN EL FILO) --- */
 .tarjeta {
     width: 380px; 
     height: 750px; 
@@ -58,19 +50,23 @@ body {
     align-items: center;
     justify-content: flex-start;
     gap: 12px;
+    
+    /* Necesario para el efecto de borde de luz */
     position: relative;
     background: transparent;
     overflow: hidden; 
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 }
 
-/* El haz de luz que gira */
+/* Pseudo-elemento detrás que gira y crea la luz */
 .tarjeta::before {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    
+    /* Imagen degradada cónica para crear el efecto de "luz corriendo" */
     background-image: conic-gradient(
         transparent,
         var(--color-acento), 
@@ -79,32 +75,51 @@ body {
         var(--color-acento) 70%, 
         transparent
     );
+    
+    /* Tamaño mayor para que gire sin cortarse */
     width: 250%; 
     height: 120%; 
+    
+    /* Animación de rotación */
     animation: rotate-border 6s linear infinite;
     z-index: -2;
 }
 
-/* Fondo oscuro y resplandor interno */
+/* Pseudo-elemento para el fondo oscuro/glass de la tarjeta y que bloquee la luz interna */
 .tarjeta::after {
     content: '';
     position: absolute;
     inset: 4px; /* Grosor del borde de luz */
-    background: rgba(15, 15, 15, 0.98); /* Un poco más oscuro para que resalte la luz */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 31px;
+    
+    /* Fondo oscuro heredado del body para "espejo", oscurecido para resaltar textos */
+    background-image: var(--url-fondo);
+    background-size: cover;
+    background-position: center;
+    
+    /* Capa de oscuridad y desenfoque para continuidad */
+    filter: brightness(0.25) blur(5px); /* Ajusta brightness para más/menos oscuridad */
+    -webkit-filter: brightness(0.25) blur(5px);
+    
+    border-radius: 31px; /* Radio ajustado para el borde interno */
     z-index: -1;
+    
+    /* Añade un resplandor interno para darle el efecto de neón */
     box-shadow: inset 0 0 15px var(--color-acento); /* Glow interno */
 }
 
-@keyframes rotate-border {
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
+/* IMPORTANTE: Aseguramos que el contenido flote sobre el fondo de la tarjeta */
+.titulo-cancion, .imagen-contenedor, .verso-contenedor, .reproductor {
+    position: relative;
+    z-index: 10;
 }
 
-/* =========================================
-   3. ELEMENTOS INTERNOS
-   ========================================= */
+/* Animación que hace girar el degradado */
+@keyframes rotate-border {
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
 .titulo-cancion {
     font-size: 1.5rem;
     font-weight: 900;
@@ -116,7 +131,6 @@ body {
     background-clip: text;
     color: transparent;
     animation: shine 4s linear infinite;
-    z-index: 1;
 }
 
 @keyframes shine { to { background-position: 200% center; } }
@@ -126,7 +140,6 @@ body {
     height: 200px;
     object-fit: contain;
     animation: float-zoom 6s ease-in-out infinite;
-    z-index: 1;
 }
 
 @keyframes float-zoom {
@@ -148,7 +161,6 @@ body {
     white-space: pre-line;
     -webkit-mask-image: linear-gradient(transparent, black 15%, black 85%, transparent);
     mask-image: linear-gradient(transparent, black 15%, black 85%, transparent);
-    z-index: 1;
 }
 
 #puntero {
@@ -162,9 +174,6 @@ body {
 
 @keyframes blink { 50% { opacity: 0; } }
 
-/* =========================================
-   4. REPRODUCTOR Y ONDAS
-   ========================================= */
 .reproductor {
     width: 100%;
     display: flex;
@@ -173,7 +182,6 @@ body {
     gap: 15px;
     padding-top: 15px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 1;
 }
 
 .boton-rojo {
@@ -205,6 +213,4 @@ body {
     transition: height 0.15s ease;
 }
 
-.una-onda.activa { 
-    background: var(--color-acento); 
-}
+.una-onda.activa { background: var(--color-acento); }
