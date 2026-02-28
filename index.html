@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarjeta Musical</title>
+    <title>Tarjeta Musical - @Pollonejo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,13 +14,12 @@
     </div>
 
     <div class="tarjeta">
-
-        <div class="titulo-cancion">
-            Nunca lo Olvides
+        <div class="titulo-cancion" id="idTitulo">
+            Cargando...
         </div>
 
         <div class="imagen-contenedor">
-            <img src="assets/images/delijitos.png" class="icono-tarjeta" alt="Icono Musical">
+            <img src="" class="icono-tarjeta" id="idImagen" alt="Icono Musical">
         </div>
 
         <div class="verso-contenedor" id="cajaScroll">
@@ -31,12 +31,10 @@
             <button id="botonPlay" class="boton-rojo">
                 <span id="estadoIcono">&#9658;</span>
             </button>
-
             <div id="ondasContenedor" class="ondas-flex"></div>
         </div>
-
     </div>
-    <script src="script.js"></script>
 
+    <script src="script.js"></script>
 </body>
 </html>
