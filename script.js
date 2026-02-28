@@ -1,14 +1,33 @@
 // 1. CONFIGURACIÓN CENTRALIZADA
 const cancion = {
-    titulo: "Nunca lo Olvides",
-    audio: "assets/audio/cancion1.mp3",
-    imagen: "assets/images/delijitos.png",
-    fondo: "url('assets/images/fondo1.jpg')",
-    colorPrincipal: "#ff0000",   
-    colorDeLetra: "#ffd700",     
-    opacidadFondo: 0.7,          
-    velocidadLetras: 100,
-    letra: "No me arrepiento,\nde nada contigo\nContigo me muero\nContigo revivo\nSos mi victoria\nY sos mi fracaso\nY sos mi victoria\nY sos mi fracaso\nSos todo lo bueno\nSos todo lo malo\nAquí estoy\nOtra vez...\n\nSoy tu soldado\nde brazos rendidos\nsiempre en esta gerra\nsalimos heridos\nComo explicarte\neste sentimiento\nSino me acostumbro\nSi no lo resuelvo\n\nNunca te olvides\nQue te doy mi vida\nTe extraño de noche\nTe quiero de día\n\nQuiero llevarte\nPor siempre conmigo\nHacia ningun lado\nhacia el infinito..."
+titulo: "Nena Maldición",
+audio: "assets/audio/cancion1.mp3",
+imagen: "assets/images/delijitos.png",
+fondo: "url('assets/images/fondo.png')",
+colorPrincipal: "#ff0000",
+colorDeLetra: "#ffd700",
+opacidadFondo: 0.7,
+
+// AQUÍ PONES EL SEGUNDO EXACTO Y LA FRASE
+letraSincronizada: [
+[2, "Mirada fría como la nieve,"],
+[5, "me congela hasta no dar más"],
+[8, "si me toca hace que me eleve"],
+[11, "hasta ni ver toda la ciudad"],
+[15, "Compraría lo que ella quiere"],
+[18, "con tal que venga para acá"],
+[21, "Estaríamos como se debe,"],
+[24, "relajados sin un problema"],
+[28, "Seguro tiene mil pretendientes"],
+[31, "pero ni uno valiente"],
+[34, "para hacerle ternuras"],
+[37, "sin miedo a qué diga la gente"],
+[40, "Yo sé bien lo que siente"],
+[43, "sé muy bien lo que siente"],
+[46, "Que todos somos iguales"],
+[49, "con los mismos errores de siempre"],
+[49, "No vez que me estoy muriendo<br>porque un ratito me regales tu atención"],
+]
 };
 
 // 2. APLICACIÓN DE ESTILOS DINÁMICOS
@@ -29,60 +48,62 @@ const textoDestino = document.getElementById('textoVerso');
 const cajaScroll = document.getElementById('cajaScroll');
 
 const cancionAudio = new Audio(cancion.audio);
-let index = 0;
-let escrituraIniciada = false;
 
 // Generar ondas
 for (let i = 0; i < 15; i++) {
-    const onda = document.createElement('div');
-    onda.classList.add('una-onda');
-    ondasContenedor.appendChild(onda);
+const onda = document.createElement('div');
+onda.classList.add('una-onda');
+ondasContenedor.appendChild(onda);
 }
 const todasLasOndas = document.querySelectorAll('.una-onda');
 
 function moverOndas() {
-    if (!cancionAudio.paused) {
-        todasLasOndas.forEach(onda => {
-            const altura = Math.floor(Math.random() * 25) + 5;
-            onda.style.height = `${altura}px`;
-            onda.classList.add('activa');
-        });
-        setTimeout(moverOndas, 150);
-    } else {
-        todasLasOndas.forEach(onda => {
-            onda.style.height = '5px';
-            onda.classList.remove('activa');
-        });
-    }
+if (!cancionAudio.paused) {
+todasLasOndas.forEach(onda => {
+const altura = Math.floor(Math.random() * 25) + 5;
+onda.style.height = `${altura}px`;
+onda.classList.add('activa');
+});
+setTimeout(moverOndas, 150);
+} else {
+todasLasOndas.forEach(onda => {
+onda.style.height = '5px';
+onda.classList.remove('activa');
+});
+}
 }
 
-function arrancarEscritura() {
-    if (index < cancion.letra.length) {
-        textoDestino.textContent += cancion.letra.charAt(index);
-        index++;
-        cajaScroll.scrollTop = cajaScroll.scrollHeight;
-        setTimeout(arrancarEscritura, cancion.velocidadLetras);
-    }
+// LÓGICA DE SINCRONIZACIÓN: Revisa el tiempo del audio constantemente
+cancionAudio.ontimeupdate = () => {
+const tiempoActual = cancionAudio.currentTime;
+
+cancion.letraSincronizada.forEach((linea) => {
+const tiempoFrase = linea[0];
+const textoFrase = linea[1];
+
+// Si el tiempo del audio pasó la marca, escribimos la línea
+if (tiempoActual >= tiempoFrase) {
+// Verificamos si la frase ya está en pantalla para no repetirla
+if (!textoDestino.innerText.includes(textoFrase)) {
+textoDestino.innerHTML += textoFrase + "<br>";
+cajaScroll.scrollTop = cajaScroll.scrollHeight;
 }
+}
+});
+};
 
 btnPlay.addEventListener('click', () => {
-    if (cancionAudio.paused) {
-        cancionAudio.play();
-        spanIcono.innerHTML = '&#10074;&#10074;'; 
-        moverOndas();
-        if (!escrituraIniciada) {
-            arrancarEscritura();
-            escrituraIniciada = true;
-        }
-    } else {
-        cancionAudio.pause();
-        spanIcono.innerHTML = '&#9658;'; 
-    }
+if (cancionAudio.paused) {
+cancionAudio.play();
+spanIcono.innerHTML = '&#10074;&#10074;';
+moverOndas();
+} else {
+cancionAudio.pause();
+spanIcono.innerHTML = '&#9658;';
+}
 });
 
 cancionAudio.onended = () => {
-    spanIcono.innerHTML = '&#9658;';
-    index = 0;
-    escrituraIniciada = false;
-    textoDestino.textContent = "";
+spanIcono.innerHTML = '&#9658;';
+textoDestino.innerHTML = ""; // Limpia la letra al terminar
 };
