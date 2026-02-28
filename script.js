@@ -2,7 +2,7 @@
 const cancion = {
 titulo: "Nena Maldición",
 audio: "assets/audio/cancion1.mp3",
-imagen: "assets/images/delijitos.png",
+imagen: "assets/images/icono.png",
 fondo: "url('assets/images/fondo.png')",
 colorPrincipal: "#ff0000",
 colorDeLetra: "#ffd700",
