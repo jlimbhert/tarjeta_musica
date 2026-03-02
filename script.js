@@ -8,25 +8,26 @@ colorPrincipal: "#ff0000",
 colorDeLetra: "#ffd700",
 opacidadFondo: 0.7,
 
-// AQUÍ PONES EL SEGUNDO EXACTO Y LA FRASE
 letraSincronizada: [
-[2, "Mirada fría como la nieve,"],
-[4, "me congela hasta no dar más"],
-[6, "si me toca hace que me eleve"],
-[8, "hasta ni ver toda la ciudad"],
-[10, "Compraría lo que ella quiere"],
-[12, "con tal que venga para acá"],
-[14, "Estaríamos como se debe,"],
-[17, "relajados sin un problema"],
-[18, "Seguro tiene mil pretendientes"],
-[21, "pero ni uno valiente"],
-[23, "para hacerle ternuras"],
-[24, "sin miedo a qué diga la gente"],
-[26, "Yo sé bien lo que siente"],
-[29, "sé muy bien lo que siente"],
-[31, "Que todos somos iguales"],
-[43, "con los mismos errores de siempre"],
-[38, "No vez que me estoy muriendo<br>porque un ratito me regales tu atención"],
+[2, "Mi futuro y tu presente"],
+[4, "Ya no quieren coincidir"],
+[6, "Pero el corazón no miente"],
+[8, "Cuando te pones hablar de mi"],
+[10, "Sabes bien que aunque no quieras"],
+[12, "Nadie ocupa mi lugar"],
+[14, "Que los besos que te he dado"],
+[17, "Nadie los puede igualar"],
+[18, "Hasta cuando y hastado donde"],
+[21, "Tú y yo vamos a esperar"],
+[23, "Y es que tú"],
+[24, "Tú no te imaginas"],
+[26, "Cuanto me ha costado"],
+[29, "Comenzar de nuevo"],
+[31, "Entre el recuerdo y tu pasado"],
+[24, "Tú no te imaginas"],
+[43, "Lo que te he querido"],
+[38, "Odio cuando dices"],
+[24, "Que mejor seamos amigos..."],
 ]
 };
 
@@ -73,7 +74,7 @@ onda.classList.remove('activa');
 }
 }
 
-// LÓGICA DE SINCRONIZACIÓN: Revisa el tiempo del audio constantemente
+// LÓGICA DE SINCRONIZACIÓN: 
 cancionAudio.ontimeupdate = () => {
 const tiempoActual = cancionAudio.currentTime;
 
