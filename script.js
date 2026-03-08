@@ -7,33 +7,41 @@ Todo lo que se puede personalizar
 const cancion = {
 
 titulo: "Nena Maldición",
-audio: "assets/audio/cancion1.mp3",
+audio: "assets/audio/cancion.mp3",
 imagen: "assets/images/icono.png",
-fondo: "assets/images/fondo.png",
+fondo: "assets/images/fondo.jpg",
 video: null,
 
-colorBorde: "#ff7a18",
-colorTexto: "#ffd89b",
-colorUI: "#ff9b42",
-colorCursor: "#fff1c9",
+colorBorde: "#3a0ca3",
+colorTexto: "#e0d4ff",
+colorUI: "#7209b7",
+colorCursor: "#ffffff",
 
 opacidadFondo: 0.7,
 
 letraSincronizada: [
-[2, "Mi futuro y tu presente"],
-[4, "Ya no quieren coincidir"],
-[6, "Pero el corazón no miente"],
-[8, "Cuando te pones hablar de mi"],
-[10, "Sabes bien que aunque no quieras"],
-[12, "Nadie ocupa mi lugar"],
-[14, "Que los besos que te he dado"],
-[17, "Nadie los puede igualar"]
-
+[2, "Tu paciencia y mi silencio"],
+[6, "Decidieron terminar"],
+[11, "Tu memoria y mi recuerdo"],
+[15, "Ya no quieren conversar"],
+[20, "Son tus besos mi frontera"],
+[22, "Y tu cárcel mi querer"],
+[25, "Y aunque digas que no quieras"],
+[27, "Tu tambien quieres volver"],
+[29, "Hasta cuando y hasta donde"],
+[31, "Tu y yo vamos a esperar"],
+[34, "Y es que tú"],
+[36, "Tú no te imaginas"],
+[38, "Cuánto me ha costado"],
+[41, "Comenzar dd nuevo"],
+[42, "Entre el recuerdo y tu pasado"],
+[45, "Tú no te imaginas"],
+[47, "Lo que te he querido"],
+[50, "De una vez por todas"],
+[52, "O regresas o te olvido"],
+[54, "....."]
 ]
-
 }
-
-
 /*
 ========================================
 2️⃣ APLICAR COLORES Y FONDO DINÁMICOS
@@ -223,35 +231,39 @@ imagen.style.transform = "scale(1)"
 
 
 /*
+/*
 ========================================
 9️⃣ SINCRONIZACIÓN DE LETRA
 ========================================
 Activa cada línea cuando llega su tiempo
 */
-let indiceActual=-1
+let indiceActual = -1
 
 audio.ontimeupdate = ()=>{
 
 const tiempo = audio.currentTime
 
-cancion.letraSincronizada.forEach((linea,i)=>{
-
-if (tiempo >= linea[0] && i > indiceActual){
+if (
+indiceActual + 1 < cancion.letraSincronizada.length &&
+tiempo >= cancion.letraSincronizada[indiceActual + 1][0]
+){
 
 if (lineas[indiceActual]){
 lineas[indiceActual].classList.remove("activa")
 }
 
-lineas[i].classList.add("activa")
+indiceActual++
 
-indiceActual = i
+lineas[indiceActual].classList.add("activa")
 
-}
-
+lineas[indiceActual].scrollIntoView({
+behavior: "smooth",
+block: "center"
 })
 
 }
 
+}
 
 /*
 ========================================
