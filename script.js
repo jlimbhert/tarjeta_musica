@@ -5,34 +5,42 @@
 Todo lo que se puede personalizar
 */
 const cancion = {
-
 titulo: "Nena Maldición",
 audio: "assets/audio/cancion1.mp3",
 imagen: "assets/images/icono.png",
 fondo: "assets/images/fondo.png",
 video: null,
 
-colorBorde: "#ff7a18",
-colorTexto: "#ffd89b",
-colorUI: "#ff9b42",
-colorCursor: "#fff1c9",
+colorBorde: "#2b6cff",
+colorTexto: "#d6e4ff",
+colorUI: "#6fa3ff",
+colorCursor: "#ffffff",
 
 opacidadFondo: 0.7,
 
 letraSincronizada: [
-[2, "Mi futuro y tu presente"],
-[4, "Ya no quieren coincidir"],
-[6, "Pero el corazón no miente"],
-[8, "Cuando te pones hablar de mi"],
-[10, "Sabes bien que aunque no quieras"],
-[12, "Nadie ocupa mi lugar"],
-[14, "Que los besos que te he dado"],
-[17, "Nadie los puede igualar"]
-
+[2, "Tu pasiencia y mi silencio"],
+[4, "Decidieron terminar"],
+[6, "Tu memoria y mi recuerdo"],
+[8, "Ya no quieren conversar"],
+[10, "Son tus besos mi frontera"],
+[12, "Y tu carcel mi querer"],
+[14, "Y aunque digas que no quieras"],
+[14, "Tu tambien quieres volver"],
+[14, "Hasta cuando y hasta donde"],
+[14, "Tú y yo vamos a esperar"],
+[14, "Y es que Tú"],
+[17, "Tú no te imaginas"]
+[14, "Cuanto me ha costado"],
+[14, "Comenzar de nuevo"],
+[14, "entre el recuerdo y tu pasado"],
+[14, "Tú no te imaginas"],
+[14, "Lo que te he querido"],
+[14, "De una vez por todas"],
+[14, "O regresas o te olvido"],
+[14, "..."],
 ]
-
 }
-
 
 /*
 ========================================
@@ -43,12 +51,10 @@ const root = document.documentElement
 
 root.style.setProperty('--url-fondo', `url('${cancion.fondo}')`)
 root.style.setProperty('--opacidad-capa', cancion.opacidadFondo)
-
 root.style.setProperty('--color-borde', cancion.colorBorde)
 root.style.setProperty('--color-texto', cancion.colorTexto)
 root.style.setProperty('--color-ui', cancion.colorUI)
 root.style.setProperty('--color-cursor', cancion.colorCursor)
-
 
 /*
 ========================================
@@ -57,15 +63,12 @@ VIDEO DE FONDO OPCIONAL
 */
 
 if (cancion.video){
-
 const video = document.createElement("video")
-
 video.src = cancion.video
 video.autoplay = true
 video.loop = true
 video.muted = true
 video.playsInline = true
-
 video.style.position = "fixed"
 video.style.top = "0"
 video.style.left = "0"
@@ -73,9 +76,7 @@ video.style.width = "100%"
 video.style.height = "100%"
 video.style.objectFit = "cover"
 video.style.zIndex = "-2"
-
 document.body.prepend(video)
-
 }
 
 /*
@@ -84,7 +85,6 @@ document.body.prepend(video)
 ========================================
 */
 document.getElementById("idTitulo").textContent = cancion.titulo
-
 const imagen = document.getElementById("idImagen")
 imagen.src = cancion.imagen
 
