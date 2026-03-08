@@ -1,216 +1,298 @@
 :root {
-    --url-fondo: url('');
-    --opacidad-capa: 0.7;
-    --color-acento: #ff0000;
-    --color-letra: #ffd700;
+
+--url-fondo: url('');
+--opacidad-capa: 0.7;
+
+--color-borde: #ff0000;
+--color-texto: #ffd700;
+
+--color-ui: #ff5a5a;
+--color-cursor: #ffffff;
+
 }
 
 body {
-    background: linear-gradient(rgba(0, 0, 0, var(--opacidad-capa)), rgba(0, 0, 0, var(--opacidad-capa))),
-                var(--url-fondo);
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    overflow-x: hidden;
+
+background:
+linear-gradient(rgba(0,0,0,var(--opacidad-capa)),
+rgba(0,0,0,var(--opacidad-capa))),
+var(--url-fondo);
+
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+
+margin: 0;
+min-height: 100vh;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+
+color: white;
+font-family: 'Poppins',sans-serif;
+
+overflow-x: hidden;
+
 }
 
-.marca-canal {
-    margin-top: 20px;
-    margin-bottom: 12px;
-    font-size: 2.2rem;
-    font-weight: 900;
-    color: var(--color-acento);
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    animation: neon-glow-red 3s ease-in-out infinite alternate;
+#videoFondoContenedor video{
+
+position: fixed;
+top: 0;
+left: 0;
+
+width: 100%;
+height: 100%;
+
+object-fit: cover;
+
+z-index: -10;
+
 }
 
-@keyframes neon-glow-red {
-    from { text-shadow: 0 0 5px rgba(255, 0, 0, 0.2); opacity: 0.6; }
-    to { text-shadow: 0 0 20px var(--color-acento), 0 0 35px var(--color-acento); opacity: 1; }
+.marca-canal{
+
+margin-top: 20px;
+margin-bottom: 12px;
+
+font-size: 2.2rem;
+font-weight: 900;
+
+color: var(--color-ui);
+
+letter-spacing: 5px;
+text-transform: uppercase;
+
+animation: neon-glow 3s ease-in-out infinite alternate;
+
 }
 
-/* --- CONTENEDOR TARJETA (CON LUZ CORRIENDO SOLO EN EL FILO) --- */
-.tarjeta {
-    width: 380px; 
-    height: 750px; 
-    border-radius: 35px;
-    padding: 25px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 12px;
-    
-    /* Necesario para el efecto de borde de luz */
-    position: relative;
-    background: transparent;
-    overflow: hidden; 
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+@keyframes neon-glow{
+
+from{
+text-shadow: 0 0 5px rgba(255,0,0,0.2);
+opacity: 0.6;
 }
 
-/* Pseudo-elemento detrás que gira y crea la luz */
-.tarjeta::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    /* Imagen degradada cónica para crear el efecto de "luz corriendo" */
-    background-image: conic-gradient(
-        transparent,
-        var(--color-acento), 
-        transparent 30%, 
-        transparent 60%, 
-        var(--color-acento) 70%, 
-        transparent
-    );
-    
-    /* Tamaño mayor para que gire sin cortarse */
-    width: 250%; 
-    height: 120%; 
-    
-    /* Animación de rotación */
-    animation: rotate-border 6s linear infinite;
-    z-index: -2;
+to{
+text-shadow: 0 0 20px var(--color-ui),0 0 35px var(--color-ui);
+opacity: 1;
 }
 
-/* Pseudo-elemento para el fondo oscuro/glass de la tarjeta y que bloquee la luz interna */
-.tarjeta::after {
-    content: '';
-    position: absolute;
-    inset: 4px; /* Grosor del borde de luz */
-    
-    /* Fondo oscuro heredado del body para "espejo", oscurecido para resaltar textos */
-    background-image: var(--url-fondo);
-    background-size: cover;
-    background-position: center;
-    
-    /* Capa de oscuridad y desenfoque para continuidad */
-    filter: brightness(0.25) blur(5px); /* Ajusta brightness para más/menos oscuridad */
-    -webkit-filter: brightness(0.25) blur(5px);
-    
-    border-radius: 31px; /* Radio ajustado para el borde interno */
-    z-index: -1;
-    
-    /* Añade un resplandor interno para darle el efecto de neón */
-    box-shadow: inset 0 0 15px var(--color-acento); /* Glow interno */
 }
 
-/* IMPORTANTE: Aseguramos que el contenido flote sobre el fondo de la tarjeta */
-.titulo-cancion, .imagen-contenedor, .verso-contenedor, .reproductor {
-    position: relative;
-    z-index: 10;
+.tarjeta{
+
+width:380px;
+max-width:92vw;
+
+height:750px;
+
+border-radius:35px;
+
+padding:25px;
+
+box-sizing:border-box;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+
+gap:12px;
+
+position:relative;
+
+background:transparent;
+
+overflow:hidden;
+
+box-shadow:0 20px 60px rgba(0,0,0,0.6);
+
 }
 
-/* Animación que hace girar el degradado */
-@keyframes rotate-border {
-    100% {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
+.tarjeta::before{
+
+content: '';
+
+position: absolute;
+
+top: 50%;
+left: 50%;
+
+transform: translate(-50%,-50%);
+
+background-image: conic-gradient(
+transparent,
+var(--color-borde),
+transparent 30%,
+transparent 60%,
+var(--color-borde) 70%,
+transparent
+);
+
+width: 250%;
+height: 120%;
+
+animation: rotate-border 6s linear infinite;
+
+z-index: -2;
+
 }
 
-.titulo-cancion {
-    font-size: 1.5rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    text-align: center;
-    background: linear-gradient(90deg, var(--color-letra), var(--color-acento), var(--color-letra));
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: shine 4s linear infinite;
+.tarjeta::after{
+content: '';
+position: absolute;
+inset: 4px;
+background-image: var(--url-fondo);
+background-size: cover;
+background-position: center;
+filter: brightness(0.25) blur(5px);
+border-radius: 31px;
+z-index: -1;
+box-shadow: inset 0 0 15px var(--color-borde);
 }
 
-@keyframes shine { to { background-position: 200% center; } }
+@keyframes rotate-border{
 
-.icono-tarjeta {
-    width: 200px;
-    height: 200px;
-    object-fit: contain;
-    animation: float-zoom 6s ease-in-out infinite;
+100%{
+transform: translate(-50%,-50%) rotate(360deg);
 }
 
-@keyframes float-zoom {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
 }
 
-.verso-contenedor {
-    flex: 1;
-    width: 100%;
-    overflow: hidden;
-    text-align: center;
-    color: var(--color-letra);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.1rem;
-    font-weight: bold;
-    line-height: 1.6;
-    margin: 10px 0;
-    white-space: pre-line;
-    -webkit-mask-image: linear-gradient(transparent, black 15%, black 85%, transparent);
-    mask-image: linear-gradient(transparent, black 15%, black 85%, transparent);
+.titulo-cancion{
+font-size: 1.5rem;
+font-weight: 900;
+text-transform: uppercase;
+text-align: center;
+color: var(--color-texto);
 }
 
-#puntero {
-    display: inline-block;
-    width: 8px;
-    height: 1.2rem;
-    background: var(--color-acento);
-    margin-left: 4px;
-    animation: blink 0.8s infinite;
+.icono-tarjeta{
+width: 200px;
+height: 200px;
+object-fit: contain;
+animation: float-zoom 6s ease-in-out infinite;
 }
 
-@keyframes blink { 50% { opacity: 0; } }
+@keyframes float-zoom{
 
-.reproductor {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    padding-top: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+0%,100%{transform: scale(1);
+}
+50%{transform: scale(1.05);
 }
 
-.boton-rojo {
-    background: var(--color-acento);
-    border: none;
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-    font-size: 1.3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.ondas-flex {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    height: 35px;
+.verso-contenedor{
+
+flex: 1;
+width: 100%;
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+
+text-align: center;
+
+font-family: 'JetBrains Mono',monospace;
+
+font-size: 1.1rem;
+font-weight: bold;
+
+line-height: 1.6;
+
+color: var(--color-texto);
+
 }
 
-.una-onda {
-    width: 4px;
-    height: 5px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
-    transition: height 0.15s ease;
+.linea{
+
+opacity: 0.25;
+transform: scale(0.9);
+
+transition: 0.4s;
+
 }
 
-.una-onda.activa { background: var(--color-acento); }
+.linea.activa{
+
+opacity: 1;
+transform: scale(1.05);
+
+text-shadow:
+0 0 5px var(--color-ui),
+0 0 10px var(--color-ui),
+0 0 20px var(--color-ui);
+
+}
+
+.reproductor{
+
+width: 100%;
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+gap: 15px;
+
+padding-top: 15px;
+
+border-top: 1px solid rgba(255,255,255,0.1);
+
+}
+
+.boton-rojo{
+
+background: var(--color-ui);
+
+border: none;
+
+width: 55px;
+height: 55px;
+
+border-radius: 50%;
+
+color: white;
+
+cursor: pointer;
+
+font-size: 1.3rem;
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+}
+
+.ondas-flex{
+
+display: flex;
+align-items: center;
+
+gap: 3px;
+
+height: 35px;
+
+}
+
+.una-onda{
+
+width: 4px;
+height: 5px;
+
+background: rgba(255,255,255,0.2);
+
+border-radius: 2px;
+
+transition: height 0.15s ease;
+
+}
+
+.una-onda.activa{
+
+background: var(--color-ui);
+
+}
