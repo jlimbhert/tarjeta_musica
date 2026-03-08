@@ -11,7 +11,7 @@ imagen: "assets/images/icono.png",
 fondo: "assets/images/fondo.jpg",
 video: null,
 
-colorBorde: "#3a0ca3",
+colorBorde: "#7209b7",
 colorTexto: "#e0d4ff",
 colorUI: "#7209b7",
 
@@ -198,12 +198,11 @@ imagen.style.transform = `scale(${pulso})`
 /*
 Reacción del marco al ritmo
 */
-const marco = document.getElementById("marcoCancion")
-const brillo = 10 + (energia / 40)
+const marco = document.getElementById("marcoCancion");
+// Limitamos el brillo para que la mancha no se salga de la tarjeta
+const brilloLimitado = Math.min(10 + (energia / 40), 30);
 
-marco.style.boxShadow =
-`0 0 ${brillo}px var(--color-borde),
-0 0 ${brillo*2}px var(--color-borde)`
+marco.style.boxShadow = `0 0 ${brilloLimitado}px var(--color-borde), 0 0 ${brilloLimitado * 1.5}px var(--color-borde)`;
 setTimeout(moverOndas, 150)
 
 } else {
@@ -224,23 +223,21 @@ imagen.style.transform = "scale(1)"
 
 /*
 /*
+/*
 ========================================
 9️⃣ SINCRONIZACIÓN DE LETRA
 ========================================
-Activa cada línea cuando llega su tiempo
 */
 let indiceActual = -1
 
-audio.ontimeupdate = ()=>{
-
+audio.ontimeupdate = () => {
 const tiempo = audio.currentTime
 
 if (
 indiceActual + 1 < cancion.letraSincronizada.length &&
 tiempo >= cancion.letraSincronizada[indiceActual + 1][0]
-){
-
-if (lineas[indiceActual]){
+) {
+if (lineas[indiceActual]) {
 lineas[indiceActual].classList.remove("activa")
 }
 
@@ -248,14 +245,19 @@ indiceActual++
 
 lineas[indiceActual].classList.add("activa")
 
-lineas[indiceActual].scrollIntoView({
-behavior: "smooth",
-block: "center"
-})
+// Ajuste para que SOLO se mueva el texto y NO la pantalla completa
+const contenedorLetras = document.getElementById("cajaScroll");
+const lineaActiva = lineas[indiceActual];
 
+const desplazar = lineaActiva.offsetTop - contenedorLetras.offsetTop - (contenedorLetras.clientHeight / 2) + (lineaActiva.clientHeight / 2);
+
+contenedorLetras.scrollTo({
+top: desplazar,
+behavior: "smooth"
+});
+}
 }
 
-}
 
 /*
 ========================================
