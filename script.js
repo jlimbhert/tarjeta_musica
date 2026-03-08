@@ -5,7 +5,6 @@
 Todo lo que se puede personalizar
 */
 const cancion = {
-
 titulo: "Nena Maldición",
 audio: "assets/audio/cancion.mp3",
 imagen: "assets/images/icono.png",
@@ -15,6 +14,7 @@ video: null,
 colorBorde: "#3a0ca3",
 colorTexto: "#e0d4ff",
 colorUI: "#7209b7",
+
 colorCursor: "#ffffff",
 
 opacidadFondo: 0.7,
@@ -51,12 +51,10 @@ const root = document.documentElement
 
 root.style.setProperty('--url-fondo', `url('${cancion.fondo}')`)
 root.style.setProperty('--opacidad-capa', cancion.opacidadFondo)
-
 root.style.setProperty('--color-borde', cancion.colorBorde)
 root.style.setProperty('--color-texto', cancion.colorTexto)
 root.style.setProperty('--color-ui', cancion.colorUI)
 root.style.setProperty('--color-cursor', cancion.colorCursor)
-
 
 /*
 ========================================
@@ -65,15 +63,12 @@ VIDEO DE FONDO OPCIONAL
 */
 
 if (cancion.video){
-
 const video = document.createElement("video")
-
 video.src = cancion.video
 video.autoplay = true
 video.loop = true
 video.muted = true
 video.playsInline = true
-
 video.style.position = "fixed"
 video.style.top = "0"
 video.style.left = "0"
@@ -81,9 +76,7 @@ video.style.width = "100%"
 video.style.height = "100%"
 video.style.objectFit = "cover"
 video.style.zIndex = "-2"
-
 document.body.prepend(video)
-
 }
 
 /*
@@ -92,7 +85,6 @@ document.body.prepend(video)
 ========================================
 */
 document.getElementById("idTitulo").textContent = cancion.titulo
-
 const imagen = document.getElementById("idImagen")
 imagen.src = cancion.imagen
 
