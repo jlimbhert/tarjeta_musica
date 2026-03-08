@@ -1,22 +1,25 @@
+/*
+========================================
+1️⃣ CONFIGURACIÓN DE LA CANCIÓN
+========================================
+Todo lo que se puede personalizar
+*/
 const cancion = {
 
 titulo: "Nena Maldición",
-
 audio: "assets/audio/cancion1.mp3",
-
 imagen: "assets/images/icono.png",
-
 fondo: "assets/images/fondo.png",
+video: null,
 
-colorBorde:"#ff7a18",
-colorTexto:"#ffd89b",
-colorUI:"#ff9b42",
-colorCursor:"#fff1c9",
+colorBorde: "#ff7a18",
+colorTexto: "#ffd89b",
+colorUI: "#ff9b42",
+colorCursor: "#fff1c9",
 
 opacidadFondo: 0.7,
 
 letraSincronizada: [
-
 [2, "Mi futuro y tu presente"],
 [4, "Ya no quieren coincidir"],
 [6, "Pero el corazón no miente"],
@@ -30,6 +33,12 @@ letraSincronizada: [
 
 }
 
+
+/*
+========================================
+2️⃣ APLICAR COLORES Y FONDO DINÁMICOS
+========================================
+*/
 const root = document.documentElement
 
 root.style.setProperty('--url-fondo', `url('${cancion.fondo}')`)
@@ -40,9 +49,52 @@ root.style.setProperty('--color-texto', cancion.colorTexto)
 root.style.setProperty('--color-ui', cancion.colorUI)
 root.style.setProperty('--color-cursor', cancion.colorCursor)
 
-document.getElementById("idTitulo").textContent = cancion.titulo
-document.getElementById("idImagen").src = cancion.imagen
 
+/*
+========================================
+VIDEO DE FONDO OPCIONAL
+========================================
+*/
+
+if (cancion.video){
+
+const video = document.createElement("video")
+
+video.src = cancion.video
+video.autoplay = true
+video.loop = true
+video.muted = true
+video.playsInline = true
+
+video.style.position = "fixed"
+video.style.top = "0"
+video.style.left = "0"
+video.style.width = "100%"
+video.style.height = "100%"
+video.style.objectFit = "cover"
+video.style.zIndex = "-2"
+
+document.body.prepend(video)
+
+}
+
+/*
+========================================
+3️⃣ CARGAR TÍTULO E IMAGEN
+========================================
+*/
+document.getElementById("idTitulo").textContent = cancion.titulo
+
+const imagen = document.getElementById("idImagen")
+imagen.src = cancion.imagen
+
+
+/*
+========================================
+4️⃣ CREAR CONTENEDOR DE LETRAS
+========================================
+Cada línea se convierte en un div
+*/
 const contenedor = document.getElementById("cajaScroll")
 
 let lineas = []
@@ -61,11 +113,29 @@ lineas.push(div)
 
 })
 
+
+/*
+========================================
+5️⃣ CONFIGURACIÓN DEL AUDIO
+========================================
+*/
 const audio = new Audio(cancion.audio)
 
+
+/*
+========================================
+6️⃣ BOTÓN PLAY
+========================================
+*/
 const btnPlay = document.getElementById("botonPlay")
 const icono = document.getElementById("estadoIcono")
 
+
+/*
+========================================
+7️⃣ CREAR ONDAS DEL ECUALIZADOR
+========================================
+*/
 const ondasContenedor = document.getElementById("ondasContenedor")
 
 for (let i = 0; i < 15; i++){
@@ -80,20 +150,60 @@ ondasContenedor.appendChild(onda)
 
 const ondas = document.querySelectorAll(".una-onda")
 
+
+/*
+========================================
+8️⃣ FUNCIÓN DE ANIMACIÓN DE ONDAS
+========================================
+✔ simula ecualizador
+✔ actúa como barra de progreso
+✔ hace pulsar la imagen
+*/
 function moverOndas(){
 
 if (!audio.paused){
 
-ondas.forEach(onda=>{
+let energia = 0
+
+const progreso = audio.currentTime / audio.duration
+const ondasEncendidas = Math.floor(progreso * ondas.length)
+
+ondas.forEach((onda,index)=>{
 
 const altura = Math.floor(Math.random()*25)+5
 
 onda.style.height = altura+"px"
 
+energia += altura
+
+if (index <= ondasEncendidas){
+
 onda.classList.add("activa")
+
+} else {
+
+onda.classList.remove("activa")
+
+}
 
 })
 
+/*
+Pulso de la imagen central
+(simula reacción a la música)
+*/
+
+const pulso = 1 + (energia / 600)
+imagen.style.transform = `scale(${pulso})`
+/*
+Reacción del marco al ritmo
+*/
+const marco = document.getElementById("marcoCancion")
+const brillo = 10 + (energia / 40)
+
+marco.style.boxShadow =
+`0 0 ${brillo}px var(--color-borde),
+0 0 ${brillo*2}px var(--color-borde)`
 setTimeout(moverOndas, 150)
 
 } else {
@@ -105,10 +215,19 @@ onda.classList.remove("activa")
 
 })
 
-}
+imagen.style.transform = "scale(1)"
 
 }
 
+}
+
+
+/*
+========================================
+9️⃣ SINCRONIZACIÓN DE LETRA
+========================================
+Activa cada línea cuando llega su tiempo
+*/
 let indiceActual=-1
 
 audio.ontimeupdate = ()=>{
@@ -133,6 +252,12 @@ indiceActual = i
 
 }
 
+
+/*
+========================================
+🔟 BOTÓN PLAY / PAUSA
+========================================
+*/
 btnPlay.addEventListener("click", ()=>{
 
 if (audio.paused){
@@ -153,10 +278,18 @@ icono.innerHTML = "▶"
 
 })
 
+
+/*
+========================================
+1️⃣1️⃣ CUANDO TERMINA LA CANCIÓN
+========================================
+*/
 audio.onended = ()=>{
 
 icono.innerHTML = "▶"
 
 lineas.forEach(l=>l.classList.remove("activa"))
+
+imagen.style.transform = "scale(1)"
 
 }
