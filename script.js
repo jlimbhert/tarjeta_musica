@@ -4,8 +4,8 @@ titulo: "Nena Maldición",
 audio: "assets/audio/cancion1.mp3",
 imagen: "assets/images/icono.png",
 fondo: "url('assets/images/fondo.png')",
-colorPrincipal: "#ff0000",
-colorDeLetra: "#ffd700",
+colorPrincipal: "#161616",
+colorDeLetra: "#FC651F",
 opacidadFondo: 0.7,
 
 letraSincronizada: [
@@ -74,7 +74,7 @@ onda.classList.remove('activa');
 }
 }
 
-// LÓGICA DE SINCRONIZACIÓN: 
+// LÓGICA DE SINCRONIZACIÓN:
 cancionAudio.ontimeupdate = () => {
 const tiempoActual = cancionAudio.currentTime;
 
