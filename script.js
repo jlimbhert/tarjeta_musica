@@ -5,7 +5,7 @@
 Todo lo que se puede personalizar
 */
 const cancion = {
-titulo: "Nena Maldición",
+titulo: "TÚ NO TE IMAGINAS",
 audio: "assets/audio/cancion.mp3",
 imagen: "assets/images/icono.png",
 fondo: "assets/images/fondo.jpg",

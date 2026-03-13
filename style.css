@@ -111,13 +111,35 @@ to { transform: translate(-50%, -50%) rotate(360deg);
 }
 
 .titulo-cancion {
-font-size: 1.5rem;
-font-weight: 900;
-text-transform: uppercase;
-text-align: center;
-color: var(--color-texto);
-margin-bottom: 5px;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: center;
+    
+    /* Efecto de combinación de colores */
+    background: linear-gradient(
+        to right, 
+        var(--color-texto), 
+        var(--color-ui), 
+        #ffffff, 
+        var(--color-texto)
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* Animación para que los colores se muevan */
+    animation: brillo-titulo 4s linear infinite;
+    
+    margin-bottom: 5px;
 }
+
+@keyframes brillo-titulo {
+    to {
+        background-position: 200% center;
+    }
+}
+
 
 .icono-tarjeta {
 width: 250px;
